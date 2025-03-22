@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ask-me-api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      - PORT=3000
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=ask_me_db
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ask-me-postgres
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ask_me_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data: 

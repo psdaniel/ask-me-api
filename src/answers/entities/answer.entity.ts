@@ -12,6 +12,7 @@ export class Answer {
 
   @ManyToOne(() => Question, (question) => question.answers, {
     onDelete: 'CASCADE',
+    nullable: true,
   })
   question: Question;
 

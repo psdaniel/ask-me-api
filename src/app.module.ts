@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { dataSourceOptions } from 'src/data-source';
 import { ResourcesModule } from '@/resources/resources.module';
 import { AnswersModule } from '@/answers/answers.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AnswersModule } from '@/answers/answers.module';
     UsersModule,
     ResourcesModule,
     AnswersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

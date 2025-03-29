@@ -17,8 +17,8 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(id: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ id });
+  findOne(email: string): Promise<User | null> {
+    return this.usersRepository.findOneBy({ email });
   }
 
   create(createUserDto: CreateUserDto): Promise<User> {
@@ -26,17 +26,20 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
-    await this.usersRepository.update(id, updateUserDto);
-    return this.findOne(id);
+  async update(
+    email: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User | null> {
+    await this.usersRepository.update(email, updateUserDto);
+    return this.findOne(email);
   }
 
-  async remove(id: string): Promise<void> {
-    await this.usersRepository.delete(id);
+  async remove(email: string): Promise<void> {
+    await this.usersRepository.delete(email);
   }
 
-  async getAnswers(id: string): Promise<Answer[]> {
-    const user = await this.findOne(id);
+  async getAnswers(email: string): Promise<Answer[]> {
+    const user = await this.findOne(email);
     if (!user) {
       throw new NotFoundException('User not found');
     }

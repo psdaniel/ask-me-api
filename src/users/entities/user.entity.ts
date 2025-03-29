@@ -12,7 +12,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class User {
-  [x: string]: any;
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
     example: 'uuid-value',
@@ -26,6 +25,13 @@ export class User {
 
   @Column({ unique: true })
   email: string;
+
+  @Column({ unique: true })
+  @ApiProperty({
+    example: 'password123',
+    description: 'The password of the user',
+  })
+  password: string;
 
   @Column({ default: true })
   isActive: boolean;

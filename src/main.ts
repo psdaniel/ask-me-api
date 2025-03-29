@@ -1,9 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Enable ValidationPipe globally
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // strips non-whitelisted properties
+      forbidNonWhitelisted: true, // throws error if non-whitelisted properties are present
+      transform: true, // automatically transform payloads to DTO instances
+    }),
+  );
+
+  // Enable CORS
+  app.enableCors({
+    origin: process.env.CORS_ALLOW_ORIGIN || '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
   // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Ask Me API')

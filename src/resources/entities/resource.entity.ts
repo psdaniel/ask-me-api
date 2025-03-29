@@ -4,6 +4,7 @@ import {
   Column,
   UpdateDateColumn,
   ManyToOne,
+  CreateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
@@ -24,7 +25,7 @@ export class Resource {
   @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()

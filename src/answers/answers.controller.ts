@@ -27,6 +27,7 @@ export class AnswersController {
     description: 'Return an answer by ID',
     type: Answer,
   })
+  @ApiResponse({ status: 404, description: 'Answer not found' })
   findOne(@Param('id') id: string): Promise<Answer | null> {
     return this.answersService.findOne(id);
   }
